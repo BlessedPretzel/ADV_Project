@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
    <children>
       <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -20,6 +19,14 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Pane fx:id="dropPane" layoutX="37.0" layoutY="50.0" prefHeight="320.0" prefWidth="540.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
+      <Pane fx:id="dropPane" layoutX="14.0" layoutY="40.0" prefHeight="344.0" prefWidth="325.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="40.0" />
+      <ProgressBar fx:id="progressBar" layoutX="368.0" layoutY="266.0" prefHeight="18.0" prefWidth="224.0" progress="0.0" />
+      <TextField fx:id="directoryTextBox" layoutX="368.0" layoutY="307.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
+      <ListView fx:id="listView" layoutX="368.0" layoutY="59.0" prefHeight="200.0" prefWidth="224.0" />
+      <Label layoutX="368.0" layoutY="290.0" text="Destination :" />
+      <Button fx:id="browseButton" layoutX="527.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Browse..." />
+      <Button fx:id="actionButton" layoutX="368.0" layoutY="343.0" mnemonicParsing="false" text="Action!" />
+      <Button fx:id="deleteButton" layoutX="541.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Delete" />
+      <Button fx:id="addButton" layoutX="368.0" layoutY="34.0" mnemonicParsing="false" text="Add" />
    </children>
 </AnchorPane>

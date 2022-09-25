@@ -4,5 +4,7 @@ module ADV_Project {
 
 
     opens se233.project to javafx.fxml;
+    opens se233.project.controller to javafx.fxml;
     exports se233.project;
+    exports se233.project.controller;
 }
