@@ -1,7 +1,5 @@
 package se233.project.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
@@ -10,24 +8,27 @@ import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import se233.project.Launcher;
+import se233.project.Model.FileList;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewController {
-    private List<File> files = new ArrayList<>();
-    private ObservableList<String> fileObservableList;
+    private FileList fileList = new FileList();
+    private ArrayList<File> fileArrayList = new ArrayList<>();
     @FXML
     private Pane dropPane;
     @FXML
     private MenuBar menuBar;
     @FXML
-    private ListView listView;
+    private ListView<String> listView;
     @FXML
-    private Button browseButton, addButton, deleteButton;
+    private Button browseButton, addButton, deleteButton, actionButton;
     @FXML
-    private TextField directoryTextBox;
+    private TextField directoryTextField;
+    @FXML
+    private TextField fileNameTextField;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -50,38 +51,42 @@ public class ViewController {
                 int total_files = dragboard.getFiles().size();
                 for (int i = 0; i<total_files; i++) {
                     File file = dragboard.getFiles().get(i);
-                    if (!files.contains(file))
-                        files.add(file);
+                    if (!fileArrayList.contains(file))
+                        fileArrayList.add(file);
                 }
             }
-            fileObservableList = FXCollections.observableList(files.stream().map(list -> list.getName()).toList());
-            listView.setItems(fileObservableList);
+            fileList.setAndUpdate(fileArrayList);
+            listView.setItems(fileList.getObservableFileList());
         });
 
         addButton.setOnAction(actionEvent -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select files");
-            files.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner()));
+            fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner()));
+            fileList.setAndUpdate(fileArrayList);
+            listView.setItems(fileList.getObservableFileList());
         });
 
         deleteButton.setOnAction(actionEvent -> {
-            List<Integer> selectedItems = listView.getSelectionModel().getSelectedIndices();
-            for (int i: selectedItems){
-                files.remove(i);
-            }
-            fileObservableList = FXCollections.observableList(files.stream().map(list -> list.getName()).toList());
-            listView.setItems(fileObservableList);
+            fileArrayList.remove(listView.getSelectionModel().getSelectedIndex());
+            fileList.setAndUpdate(fileArrayList);
+            listView.setItems(fileList.getObservableFileList());
         });
 
         browseButton.setOnAction(actionEvent -> {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             directoryChooser.setTitle("Select a directory");
-            directoryTextBox.setText(directoryChooser.showDialog(Launcher.stage.getOwner()).getAbsolutePath());
+            directoryTextField.setText(directoryChooser.showDialog(Launcher.stage.getOwner()).getAbsolutePath());
+        });
 
+        actionButton.setOnAction(actionEvent -> {
+            try {
+                System.out.println(directoryTextField.getText()+fileNameTextField.getText());
+                CompressController.compressToZip(fileList.getFileList(), directoryTextField.getText()+fileNameTextField.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
-    public List<File> getFiles() {
-        return files;
-    }
 }
