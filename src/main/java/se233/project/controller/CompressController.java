@@ -64,14 +64,16 @@ public class CompressController {
         zipFile.close();
     }
     public static void compressToTargz(List<String> fileDirectories, String directory, String password, Label label, ProgressBar progressBar) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(directory);
+        File newFile = new File(directory);
+        FileOutputStream fileOutputStream = new FileOutputStream(newFile);
         TarArchiveOutputStream tarArchiveOutputStream = new TarArchiveOutputStream(fileOutputStream);
 
-        for (String file : fileDirectories) {
-            TarArchiveEntry tarArchiveEntry = new TarArchiveEntry(Path.of(file));
+        for (Path file : fileDirectories.stream().map(Path::of).toList()) {
+            TarArchiveEntry tarArchiveEntry = new TarArchiveEntry(file.toFile(), file.getFileName().toString());
             tarArchiveOutputStream.putArchiveEntry(tarArchiveEntry);
+            Files.copy(file, tarArchiveOutputStream);
+            tarArchiveOutputStream.closeArchiveEntry();
         }
-        tarArchiveOutputStream.closeArchiveEntry();
         tarArchiveOutputStream.finish();
     }
     /*
