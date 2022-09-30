@@ -3,20 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
    <children>
-      <AnchorPane layoutX="357.0" layoutY="34.0" prefHeight="351.0" prefWidth="237.0">
+      <AnchorPane layoutX="356.0" layoutY="40.0" prefHeight="402.0" prefWidth="237.0">
          <children>
             <ListView fx:id="listView" layoutY="35.0" prefHeight="152.0" prefWidth="237.0" />
             <Label layoutX="5.0" layoutY="228.0" text="Destination :" />
             <Button fx:id="browseButton" layoutX="166.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Browse..." />
-            <Button fx:id="actionButton" layoutY="324.0" mnemonicParsing="false" text="Action!" />
+            <Button fx:id="actionButton" layoutX="4.0" layoutY="362.0" mnemonicParsing="false" text="Archive" />
             <Button fx:id="deleteButton" layoutX="183.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Delete" />
             <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
-            <ProgressBar fx:id="progressBar" layoutX="-1.0" layoutY="197.0" prefHeight="18.0" prefWidth="237.0" progress="0.0" />
+            <ProgressBar fx:id="progressBar" layoutX="3.0" layoutY="197.0" prefHeight="18.0" prefWidth="231.0" progress="0.0" />
             <TextField fx:id="directoryTextField" layoutX="5.0" layoutY="246.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
             <Label layoutX="5.0" layoutY="271.0" text="File name:" />
             <TextField fx:id="fileNameTextField" layoutX="5.0" layoutY="288.0" promptText="Enter the file name" />
+            <Label layoutX="5.0" layoutY="313.0" text="Password:" />
+            <Label fx:id="progressLabel" layoutX="96.0" layoutY="197.0" text="Progress" textAlignment="CENTER" />
+            <Button fx:id="clearButton" layoutX="133.0" layoutY="1.0" mnemonicParsing="false" text="Clear" />
+            <ChoiceBox fx:id="extensionChoiceBox" layoutX="166.0" layoutY="288.0" prefHeight="25.0" prefWidth="67.0" />
+            <PasswordField fx:id="passwordField" layoutX="5.0" layoutY="330.0" promptText="Enter the password" />
          </children></AnchorPane>
       <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
         <menus>
