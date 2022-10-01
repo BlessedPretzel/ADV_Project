@@ -13,14 +13,12 @@ import net.lingala.zip4j.progress.ProgressMonitor;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
+import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.zip.GZIPOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class CompressController {
 
@@ -63,18 +61,22 @@ public class CompressController {
         }
         zipFile.close();
     }
-    public static void compressToTargz(List<String> fileDirectories, String directory, String password, Label label, ProgressBar progressBar) throws IOException {
+    public static void compressToTargz(List<String> fileDirectories, String directory) throws IOException {
         File newFile = new File(directory);
         FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-        TarArchiveOutputStream tarArchiveOutputStream = new TarArchiveOutputStream(fileOutputStream);
+        GzipCompressorOutputStream gzipCompressorOutputStream = new GzipCompressorOutputStream(fileOutputStream);
+        TarArchiveOutputStream tarArchiveOutputStream = new TarArchiveOutputStream(gzipCompressorOutputStream);
 
         for (Path file : fileDirectories.stream().map(Path::of).toList()) {
             TarArchiveEntry tarArchiveEntry = new TarArchiveEntry(file.toFile(), file.getFileName().toString());
             tarArchiveOutputStream.putArchiveEntry(tarArchiveEntry);
-            Files.copy(file, tarArchiveOutputStream);
+            IOUtils.copy(file.toFile(), tarArchiveOutputStream);
             tarArchiveOutputStream.closeArchiveEntry();
         }
         tarArchiveOutputStream.finish();
+        gzipCompressorOutputStream.finish();
+        tarArchiveOutputStream.close();
+        gzipCompressorOutputStream.close();
     }
     /*
         Create .zip file from array of files into the specified directory.

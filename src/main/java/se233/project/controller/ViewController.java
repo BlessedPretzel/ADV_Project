@@ -1,5 +1,7 @@
 package se233.project.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -25,7 +27,7 @@ public class ViewController {
     @FXML
     private MenuBar menuBar;
     @FXML
-    private ChoiceBox extensionChoiceBox = new ChoiceBox<>();
+    private ChoiceBox<FileExtension> extensionChoiceBox = new ChoiceBox<FileExtension>();
     @FXML
     private ListView<String> listView;
     @FXML
@@ -42,6 +44,17 @@ public class ViewController {
         extensionChoiceBox.setItems(FXCollections.observableList(Arrays.asList(FileExtension.ZIP,FileExtension.TARGZ)));
         extensionChoiceBox.setValue(FileExtension.ZIP);
         directoryTextField.setText("D:\\Code\\ADV_Project\\testfolder");
+
+        extensionChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
+            if (t1.equals(1)) {
+                passwordField.setEditable(false);
+                passwordField.setOpacity(0.5);
+            } else {
+                passwordField.setEditable(true);
+                passwordField.setOpacity(1);
+            }
+        });
+
         dropPane.setOnDragOver(dragEvent -> {
             Dragboard dragboard = dragEvent.getDragboard();
             if (dragboard.hasFiles()) {
@@ -70,11 +83,15 @@ public class ViewController {
         addButton.setOnAction(actionEvent -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select files");
-            fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner())
-                    .stream()
-                    .map(File::getAbsolutePath)
-                    .toList());
-            fileDirectories.setAndUpdate(fileArrayList);
+            try {
+                fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner())
+                        .stream()
+                        .map(File::getAbsolutePath)
+                        .toList());
+                fileDirectories.setAndUpdate(fileArrayList);
+            } catch (NullPointerException e) {
+                System.out.println("Add Button: No directory chosen");
+            }
             listView.setItems(fileDirectories.getObservableFileList());
         });
 
@@ -119,10 +136,7 @@ public class ViewController {
                 }
                 else {
                     CompressController.compressToTargz(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar",
-                            passwordField.getText(),
-                            progressLabel,
-                            progressBar);
+                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz");
                 }
             } catch (IllegalStateException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

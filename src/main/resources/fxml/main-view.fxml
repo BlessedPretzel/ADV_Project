@@ -17,7 +17,7 @@
             <TextField fx:id="directoryTextField" layoutX="5.0" layoutY="246.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
             <Label layoutX="5.0" layoutY="271.0" text="File name:" />
             <TextField fx:id="fileNameTextField" layoutX="5.0" layoutY="288.0" promptText="Enter the file name" />
-            <Label layoutX="5.0" layoutY="313.0" text="Password:" />
+            <Label fx:id="passwordLabel" layoutX="5.0" layoutY="313.0" text="Password:" />
             <Label fx:id="progressLabel" layoutX="96.0" layoutY="197.0" text="Progress" textAlignment="CENTER" />
             <Button fx:id="clearButton" layoutX="133.0" layoutY="1.0" mnemonicParsing="false" text="Clear" />
             <ChoiceBox fx:id="extensionChoiceBox" layoutX="166.0" layoutY="288.0" prefHeight="25.0" prefWidth="67.0" />
