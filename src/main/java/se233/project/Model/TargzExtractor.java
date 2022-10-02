@@ -1,26 +1,24 @@
-package se233.project.controller;
+package se233.project.Model;
 
-import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
+import javafx.concurrent.Task;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
-public class ExtractController {
-    public static void extractZip(String zipDir, String extDir, String password) throws ZipException {
-        File file = new File(zipDir);
-        ZipFile zipFile = new ZipFile(file, password.toCharArray());
-        zipFile.extractAll(extDir);
+public class TargzExtractor extends Task<Void> {
+    private String sourceDir, extDir;
+
+    public TargzExtractor(String sourceDir, String extDir) {
+        this.sourceDir = sourceDir;
+        this.extDir = extDir;
     }
 
-    public static void extractTargz(String targzDir, String extDir) throws IOException {
-        File file = new File(targzDir);
+    @Override
+    protected Void call() throws IOException {
+        File file = new File(sourceDir);
         FileInputStream fileInputStream = new FileInputStream(file);
         GzipCompressorInputStream gzipCompressorInputStream = new GzipCompressorInputStream(fileInputStream);
         TarArchiveInputStream tarArchiveInputStream = new TarArchiveInputStream(gzipCompressorInputStream);
@@ -31,5 +29,6 @@ public class ExtractController {
         tarArchiveInputStream.close();
         gzipCompressorInputStream.close();
         fileInputStream.close();
+        return null;
     }
 }
