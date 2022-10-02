@@ -16,7 +16,6 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -77,29 +76,6 @@ public class CompressController {
         gzipCompressorOutputStream.finish();
         tarArchiveOutputStream.close();
         gzipCompressorOutputStream.close();
+        fileOutputStream.close();
     }
-    /*
-        Create .zip file from array of files into the specified directory.
-
-        @param files - array of files
-        @param directory - directory for the file
-     */
-    /*public static void compressToZip(List<File> files, String directory) throws IOException {
-        FileOutputStream fileOut = new FileOutputStream(directory);
-        ZipOutputStream zipOut = new ZipOutputStream(fileOut);
-        for (File file : files) {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            ZipEntry zipEntry = new ZipEntry(file.getName());
-            zipOut.putNextEntry(zipEntry);
-
-            byte[] bytes = new byte[1024];
-            int length;
-            while ((length = fileInputStream.read(bytes)) >= 0) {
-                zipOut.write(bytes,0,length);
-            }
-            fileInputStream.close();
-        }
-        zipOut.close();
-        fileOut.close();
-    }*/
 }

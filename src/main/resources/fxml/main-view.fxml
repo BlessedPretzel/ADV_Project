@@ -10,7 +10,7 @@
             <ListView fx:id="listView" layoutY="35.0" prefHeight="152.0" prefWidth="237.0" />
             <Label layoutX="5.0" layoutY="228.0" text="Destination :" />
             <Button fx:id="browseButton" layoutX="166.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Browse..." />
-            <Button fx:id="actionButton" layoutX="4.0" layoutY="362.0" mnemonicParsing="false" text="Archive" />
+            <Button fx:id="archiveButton" layoutX="4.0" layoutY="362.0" mnemonicParsing="false" text="Archive" />
             <Button fx:id="deleteButton" layoutX="183.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Delete" />
             <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
             <ProgressBar fx:id="progressBar" layoutX="3.0" layoutY="197.0" prefHeight="18.0" prefWidth="231.0" progress="0.0" />
@@ -22,6 +22,7 @@
             <Button fx:id="clearButton" layoutX="133.0" layoutY="1.0" mnemonicParsing="false" text="Clear" />
             <ChoiceBox fx:id="extensionChoiceBox" layoutX="166.0" layoutY="288.0" prefHeight="25.0" prefWidth="67.0" />
             <PasswordField fx:id="passwordField" layoutX="5.0" layoutY="330.0" promptText="Enter the password" />
+            <Button fx:id="extractButton" layoutX="80.0" layoutY="362.0" mnemonicParsing="false" text="Extract" />
          </children></AnchorPane>
       <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
         <menus>

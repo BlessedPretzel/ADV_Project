@@ -9,6 +9,7 @@ import java.util.List;
 public class FileDirectories {
     private List<String> fileDirectories = new ArrayList<>();
     private ObservableList<String> observableFileList;
+    private boolean isExtractable;
 
     public FileDirectories() {}
 
@@ -31,5 +32,15 @@ public class FileDirectories {
 
     public ObservableList<String> getObservableFileList() {
         return observableFileList;
+    }
+
+    public boolean isExtractable() {
+        isExtractable = true;
+        fileDirectories.forEach(s -> {
+                    if (!s.contains(".zip") && !s.contains(".tar.gz")) {
+                        this.isExtractable = false;
+                    }
+        });
+        return this.isExtractable;
     }
 }

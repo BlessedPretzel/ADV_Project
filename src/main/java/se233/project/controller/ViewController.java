@@ -1,7 +1,5 @@
 package se233.project.controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +8,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import net.lingala.zip4j.exception.ZipException;
 import se233.project.Launcher;
 import se233.project.Model.FileDirectories;
 import se233.project.Model.FileExtension;
@@ -33,7 +32,7 @@ public class ViewController {
     @FXML
     private Label progressLabel;
     @FXML
-    private Button browseButton, addButton, deleteButton, actionButton, clearButton;
+    private Button browseButton, addButton, deleteButton, archiveButton, clearButton, extractButton;
     @FXML
     private TextField directoryTextField, fileNameTextField, passwordField;
     @FXML
@@ -108,10 +107,12 @@ public class ViewController {
         });
 
         clearButton.setOnAction(actionEvent -> {
-
+            fileArrayList = new ArrayList<>();
+            fileDirectories.setAndUpdate(fileArrayList);
+            listView.setItems(fileDirectories.getObservableFileList());
         });
 
-        actionButton.setOnAction(actionEvent -> {
+        archiveButton.setOnAction(actionEvent -> {
             if (directoryTextField.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Notice");
@@ -129,7 +130,7 @@ public class ViewController {
             try {
                 if (extensionChoiceBox.getValue().equals(FileExtension.ZIP)) {
                     CompressController.compressToZip(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText(),
+                            directoryTextField.getText() + "\\" + fileNameTextField.getText() + ".zip",
                             passwordField.getText(),
                             progressLabel,
                             progressBar);
@@ -149,6 +150,30 @@ public class ViewController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        });
+
+        extractButton.setOnAction(actionEvent -> {
+            if (!fileDirectories.isExtractable()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Notice");
+                alert.setHeaderText("Invalid file extension");
+                alert.showAndWait();
+                return;
+            } else {
+                System.out.println("Can");
+            }
+            fileDirectories.getFileList().forEach(s -> {
+                try {
+                    if (s.contains(".zip"))
+                        ExtractController.extractZip(s, directoryTextField.getText(), passwordField.getText());
+                    else
+                        ExtractController.extractTargz(s, directoryTextField.getText());
+                } catch (ZipException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         });
     }
 }
