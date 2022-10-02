@@ -9,6 +9,6 @@ module ADV_Project {
     opens se233.project.controller to javafx.fxml;
     exports se233.project;
     exports se233.project.controller;
-    exports se233.project.Model;
-    opens se233.project.Model to javafx.fxml;
+    exports se233.project.model;
+    opens se233.project.model to javafx.fxml;
 }

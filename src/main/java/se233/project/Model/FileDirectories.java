@@ -1,4 +1,4 @@
-package se233.project.Model;
+package se233.project.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

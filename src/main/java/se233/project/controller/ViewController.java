@@ -8,12 +8,12 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.ZipFile;
 import se233.project.Launcher;
-import se233.project.Model.TargzExtractor;
-import se233.project.Model.ZipExtractor;
-import se233.project.Model.FileDirectories;
-import se233.project.Model.FileExtension;
+import se233.project.model.TargzExtractor;
+import se233.project.model.ZipExtractor;
+import se233.project.model.FileDirectories;
+import se233.project.model.FileExtension;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class ViewController {
 
         extensionChoiceBox.setItems(FXCollections.observableList(Arrays.asList(FileExtension.ZIP,FileExtension.TARGZ)));
         extensionChoiceBox.setValue(FileExtension.ZIP);
-        directoryTextField.setText("D:\\Code\\ADV_Project\\testfolder");
+        directoryTextField.setText(System.getProperty("user.dir"));
 
         /*extensionChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
             if (t1.equals(1)) {
@@ -170,10 +170,24 @@ public class ViewController {
             }
             executorService = Executors.newFixedThreadPool(fileDirectories.getFileList().size());
             fileDirectories.getFileList().forEach(s -> {
-                if (s.contains(".zip"))
-                    executorService.submit(new ZipExtractor(s, directoryTextField.getText(), passwordField.getText()));
-                else
+                if (s.contains(".zip")) {
+                    String temp = "";
+                    try (ZipFile zipFile = new ZipFile(new File(s))) {
+                        if (zipFile.isEncrypted()) {
+                            TextInputDialog inputDialog = new TextInputDialog();
+                            inputDialog.setTitle("Enter password");
+                            inputDialog.setHeaderText("Enter password for " + zipFile.getFile().getName());
+                            inputDialog.showAndWait();
+                            temp = inputDialog.getResult();
+                        }
+                    } catch (IOException e) {
+                            e.printStackTrace();
+                    }
+                    executorService.submit(new ZipExtractor(s, directoryTextField.getText(), temp));
+                }
+                else {
                     executorService.submit(new TargzExtractor(s, directoryTextField.getText()));
+                }
             });
             executorService.shutdown();
         });

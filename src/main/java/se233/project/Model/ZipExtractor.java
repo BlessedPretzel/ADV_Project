@@ -1,6 +1,8 @@
-package se233.project.Model;
+package se233.project.model;
 
 import javafx.concurrent.Task;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextInputDialog;
 import net.lingala.zip4j.ZipFile;
 
 import java.io.File;
@@ -18,7 +20,8 @@ public class ZipExtractor extends Task<Void> {
     @Override
     protected Void call() {
         File file = new File(sourceDir);
-        try (ZipFile zipFile = new ZipFile(file, password.toCharArray())) {
+        try (ZipFile zipFile = new ZipFile(file)) {
+            zipFile.setPassword(password.toCharArray());
             zipFile.extractAll(extDir);
         } catch (IOException e) {
             e.printStackTrace();

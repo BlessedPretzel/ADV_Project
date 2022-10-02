@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="608.0" style="-fx-background-color: #FFC78C;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
    <children>
-      <AnchorPane layoutX="356.0" layoutY="40.0" prefHeight="402.0" prefWidth="237.0">
-         <children>
-            <ListView fx:id="listView" layoutY="35.0" prefHeight="152.0" prefWidth="237.0" />
-            <Label layoutX="5.0" layoutY="228.0" text="Destination :" />
-            <Button fx:id="browseButton" layoutX="166.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Browse..." />
-            <Button fx:id="archiveButton" layoutX="4.0" layoutY="362.0" mnemonicParsing="false" text="Archive" />
-            <Button fx:id="deleteButton" layoutX="183.0" layoutY="1.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Delete" />
-            <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
-            <ProgressBar fx:id="progressBar" layoutX="3.0" layoutY="197.0" prefHeight="18.0" prefWidth="231.0" progress="0.0" />
-            <TextField fx:id="directoryTextField" layoutX="5.0" layoutY="246.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
-            <Label layoutX="5.0" layoutY="271.0" text="File name:" />
-            <TextField fx:id="fileNameTextField" layoutX="5.0" layoutY="288.0" promptText="Enter the file name" />
-            <Label fx:id="passwordLabel" layoutX="5.0" layoutY="313.0" text="Password:" />
-            <Label fx:id="progressLabel" layoutX="96.0" layoutY="197.0" text="Progress" textAlignment="CENTER" />
-            <Button fx:id="clearButton" layoutX="133.0" layoutY="1.0" mnemonicParsing="false" text="Clear" />
-            <ChoiceBox fx:id="extensionChoiceBox" layoutX="166.0" layoutY="288.0" prefHeight="25.0" prefWidth="67.0" />
-            <PasswordField fx:id="passwordField" layoutX="5.0" layoutY="330.0" promptText="Enter the password" />
-            <Button fx:id="extractButton" layoutX="80.0" layoutY="362.0" mnemonicParsing="false" text="Extract" />
-         </children></AnchorPane>
-      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+      <MenuBar fx:id="menuBar" layoutX="11.0" layoutY="5.0" prefHeight="29.0" prefWidth="586.0" style="-fx-background-color: #FFFD93; -fx-border-color: #FF7800; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 2;">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -38,6 +22,83 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Pane fx:id="dropPane" layoutX="14.0" layoutY="40.0" prefHeight="344.0" prefWidth="325.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="40.0" />
+      <Pane fx:id="dropPane" layoutX="14.0" layoutY="40.0" prefHeight="344.0" prefWidth="325.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #FF7800; -fx-border-width: 2;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="88.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/drag-and-drop.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-28.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/umaru.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="222.0" fitWidth="200.0" layoutX="125.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/a.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <TabPane layoutX="339.0" layoutY="40.0" prefHeight="445.0" prefWidth="273.0" stylesheets="@../css/TabSheet.css">
+         <tabs>
+            <Tab fx:id="tab" closable="false" text="Archive">
+               <content>
+                  <AnchorPane prefHeight="413.0" prefWidth="278.0">
+                     <children>
+                        <Button fx:id="archiveButton" layoutX="10.0" layoutY="370.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF6800#FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Archive">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Button>
+                        <TextField fx:id="fileNameTextField" layoutX="10.0" layoutY="286.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the file name" />
+                        <ChoiceBox fx:id="extensionChoiceBox" layoutX="180.0" layoutY="284.0" prefHeight="25.0" prefWidth="67.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8A22; -fx-border-color: white; -fx-border-width: 2;" />
+                        <PasswordField fx:id="passwordField" layoutX="11.0" layoutY="329.0" promptText="Enter the password" />
+                        <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="153.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/gudetama.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="12.0" layoutY="267.0" text="File name:" />
+                        <Label fx:id="passwordLabel" layoutX="13.0" layoutY="312.0" text="Password:" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab2" closable="false" text="Extract">
+               <content>
+               </content>
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="extractButton" layoutX="14.0" layoutY="276.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="78.0" style="-fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #FF6800; -fx-border-color: white; -fx-border-width: 2;" text="Extract" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Button>
+                        <ImageView fitHeight="125.0" fitWidth="157.0" layoutX="102.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/blue-cat.gif" />
+                           </image>
+                           <effect>
+                              <Glow />
+                           </effect></ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <AnchorPane layoutX="351.0" layoutY="74.0" prefHeight="269.0" prefWidth="239.0">
+         <children>
+            <Button fx:id="browseButton" layoutX="168.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8A22; -fx-border-color: white; -fx-border-width: 2;" text="Browse..." />
+            <Button fx:id="deleteButton" layoutX="183.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="56.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Delete" />
+            <Button fx:id="addButton" mnemonicParsing="false" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Add" />
+            <Button fx:id="clearButton" layoutX="128.0" mnemonicParsing="false" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Clear" />
+            <ListView fx:id="listView" layoutX="-1.0" layoutY="35.0" prefHeight="152.0" prefWidth="239.0" style="-fx-border-color: #FF7800; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" />
+            <ProgressBar fx:id="progressBar" layoutX="4.0" layoutY="193.0" prefHeight="18.0" prefWidth="231.0" progress="0.0" />
+            <Label fx:id="progressLabel" layoutX="96.0" layoutY="194.0" text="Progress" textAlignment="CENTER" />
+            <TextField fx:id="directoryTextField" layoutX="-1.0" layoutY="235.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
+            <Label layoutX="-1.0" layoutY="218.0" text="Destination :" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
