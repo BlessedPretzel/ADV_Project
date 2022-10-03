@@ -161,9 +161,7 @@ public class ViewController {
                 alert.setHeaderText("No file");
                 alert.showAndWait();
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         });

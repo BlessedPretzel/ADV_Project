@@ -6,30 +6,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="608.0" style="-fx-background-color: #FFC78C;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="595.0" style="-fx-background-color: #FFC78C;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
    <children>
-      <MenuBar fx:id="menuBar" layoutX="11.0" layoutY="5.0" prefHeight="29.0" prefWidth="586.0" style="-fx-background-color: #FFFD93; -fx-border-color: #FF7800; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 2;">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem fx:id="closeButton" mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Pane fx:id="dropPane" layoutX="14.0" layoutY="40.0" prefHeight="344.0" prefWidth="325.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #FF7800; -fx-border-width: 2;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="269.0" AnchorPane.topAnchor="40.0">
+      <Pane fx:id="dropPane" layoutX="5.0" layoutY="6.0" prefHeight="445.0" prefWidth="325.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #FF7800; -fx-border-width: 2;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="6.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="88.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/drag-and-drop.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-28.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/umaru.png" />
                </image>
@@ -40,7 +26,7 @@
                </image>
             </ImageView>
          </children></Pane>
-      <TabPane fx:id="tabPane" layoutX="339.0" layoutY="40.0" prefHeight="445.0" prefWidth="273.0" stylesheets="@../css/TabSheet.css">
+      <TabPane fx:id="tabPane" layoutX="330.0" layoutY="6.0" prefHeight="445.0" prefWidth="286.0" stylesheets="@../css/TabSheet.css">
          <tabs>
             <Tab fx:id="tab" closable="false" text="Archive">
                <content>
@@ -87,7 +73,7 @@
             </Tab>
          </tabs>
       </TabPane>
-      <AnchorPane layoutX="351.0" layoutY="74.0" prefHeight="269.0" prefWidth="239.0">
+      <AnchorPane layoutX="342.0" layoutY="40.0" prefHeight="269.0" prefWidth="239.0">
          <children>
             <Button fx:id="browseButton" layoutX="168.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8A22; -fx-border-color: white; -fx-border-width: 2;" text="Browse..." />
             <Button fx:id="deleteButton" layoutX="183.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="56.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Delete" />
