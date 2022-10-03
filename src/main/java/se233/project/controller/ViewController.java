@@ -43,13 +43,15 @@ public class ViewController {
     @FXML
     private ProgressBar progressBar;
     @FXML
+    private TabPane tabPane;
+    @FXML
     public void initialize() {
 
         extensionChoiceBox.setItems(FXCollections.observableList(Arrays.asList(FileExtension.ZIP,FileExtension.TARGZ)));
         extensionChoiceBox.setValue(FileExtension.ZIP);
         directoryTextField.setText(System.getProperty("user.dir"));
 
-        /*extensionChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
+        extensionChoiceBox.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
             if (t1.equals(1)) {
                 passwordField.setEditable(false);
                 passwordField.setOpacity(0.5);
@@ -57,7 +59,8 @@ public class ViewController {
                 passwordField.setEditable(true);
                 passwordField.setOpacity(1);
             }
-        });*/
+        });
+
 
         dropPane.setOnDragOver(dragEvent -> {
             Dragboard dragboard = dragEvent.getDragboard();
@@ -82,6 +85,11 @@ public class ViewController {
             }
             fileDirectories.setAndUpdate(fileArrayList);
             listView.setItems(fileDirectories.getObservableFileList());
+            SelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
+            tabSelectionModel.select(0);
+            if (fileDirectories.isExtractable()) {
+                tabSelectionModel.select(1);
+            }
         });
 
         addButton.setOnAction(actionEvent -> {
@@ -97,6 +105,11 @@ public class ViewController {
                 System.out.println("Add Button: No directory chosen");
             }
             listView.setItems(fileDirectories.getObservableFileList());
+            SelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
+            tabSelectionModel.select(0);
+            if (fileDirectories.isExtractable()) {
+                tabSelectionModel.select(1);
+            }
         });
 
         deleteButton.setOnAction(actionEvent -> {
