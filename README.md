@@ -1,3 +1,5 @@
 # 953233 Advanced Programming
 ## Archiver Term Project
-There ain't anything yet lol
+Made by 
+    642115016 Danaikrit Jaiwong
+    642115024 Thaiphat Sukhumpraisan
