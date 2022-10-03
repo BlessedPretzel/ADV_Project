@@ -1,6 +1,12 @@
+/*
+    AUTHOR
+    642115016 Danaikrit Jaiwong
+    642115024 Thaiphat Sukhumpraisan
+ */
 package se233.project.controller;
 
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.Dragboard;
@@ -10,17 +16,14 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import net.lingala.zip4j.ZipFile;
 import se233.project.Launcher;
-import se233.project.model.TargzExtractor;
-import se233.project.model.ZipExtractor;
-import se233.project.model.FileDirectories;
-import se233.project.model.FileExtension;
+import se233.project.model.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class ViewController {
     private FileDirectories fileDirectories = new FileDirectories();
@@ -38,8 +41,6 @@ public class ViewController {
     private Button browseButton, addButton, deleteButton, archiveButton, clearButton, extractButton;
     @FXML
     private TextField directoryTextField, fileNameTextField, passwordField;
-    @FXML
-    private ProgressBar progressBar;
     @FXML
     private TabPane tabPane;
     @FXML
@@ -93,15 +94,11 @@ public class ViewController {
         addButton.setOnAction(actionEvent -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select files");
-            /*try {*/
             fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner())
                     .stream()
                     .map(File::getAbsolutePath)
                     .toList());
             fileDirectories.setAndUpdate(fileArrayList);
-//            } catch (NullPointerException e) {
-//                throw e;
-//            }
             listView.setItems(fileDirectories.getObservableFileList());
             SelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
             tabSelectionModel.select(0);
@@ -143,29 +140,37 @@ public class ViewController {
                 alert.showAndWait();
                 return;
             }
-            try {
-                if (extensionChoiceBox.getValue().equals(FileExtension.ZIP)) {
-                    CompressController.compressToZip(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText() + ".zip",
-                            passwordField.getText(),
-                            progressLabel,
-                            progressBar);
+            executorService = Executors.newSingleThreadExecutor();
+            Task<Void> processTask = new Task<>() {
+                @Override
+                public Void call() {
+                    try {
+                        if (extensionChoiceBox.getValue().equals(FileExtension.ZIP)) {
+                            executorService.submit(new ZipCompressor(fileDirectories.getFileList(),
+                                    directoryTextField.getText() + "\\" + fileNameTextField.getText() + ".zip",
+                                    passwordField.getText()));
+                        }
+                        else {
+                            executorService.submit(new TargzCompressor(fileDirectories.getFileList(),
+                                    directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz"));
+                        }
+                    } catch (IllegalStateException  e) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Notice");
+                        alert.setHeaderText("No file");
+                        alert.showAndWait();
+                        e.printStackTrace();
+                    }
+                    return null;
                 }
-                else {
-                    CompressController.compressToTargz(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz",
-                            progressLabel,
-                            progressBar);
-                }
-            } catch (IllegalStateException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Notice");
-                alert.setHeaderText("No file");
-                alert.showAndWait();
-                e.printStackTrace();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            };
+            Thread thread = new Thread(processTask);
+            thread.setDaemon(true);
+            thread.start();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Notice");
+            alert.setHeaderText("Done!");
+            alert.showAndWait();
         });
 
         extractButton.setOnAction(actionEvent -> {
@@ -175,31 +180,47 @@ public class ViewController {
                 alert.setHeaderText("Invalid file extension");
                 alert.showAndWait();
                 return;
-            } else {
-                System.out.println("Can");
             }
-            executorService = Executors.newFixedThreadPool(fileDirectories.getFileList().size());
-            fileDirectories.getFileList().forEach(s -> {
+            // Get passwords for each zip if it is encrypted
+            Map<String, String> map =
+            fileDirectories.getFileList().stream().collect(Collectors.toMap(s-> s,s -> {
                 if (s.contains(".zip")) {
-                    String temp = "";
                     try (ZipFile zipFile = new ZipFile(new File(s))) {
                         if (zipFile.isEncrypted()) {
                             TextInputDialog inputDialog = new TextInputDialog();
                             inputDialog.setTitle("Enter password");
                             inputDialog.setHeaderText("Enter password for " + zipFile.getFile().getName());
                             inputDialog.showAndWait();
-                            temp = inputDialog.getResult();
+                            return inputDialog.getResult();
                         }
                     } catch (IOException e) {
-                            e.printStackTrace();
+                        e.printStackTrace();
                     }
-                    executorService.submit(new ZipExtractor(s, directoryTextField.getText(), temp));
                 }
-                else {
-                    executorService.submit(new TargzExtractor(s, directoryTextField.getText()));
+                return "";
+            }));
+            Task<Void> processTask = new Task<>() {
+                @Override
+                public Void call() {
+                    executorService = Executors.newFixedThreadPool(fileDirectories.getFileList().size());
+                    map.forEach((dir, pass) -> {
+                        if (dir.contains(".zip")) {
+                            executorService.submit(new ZipExtractor(dir, directoryTextField.getText(), pass));
+                        } else {
+                            executorService.submit(new TargzExtractor(dir, directoryTextField.getText()));
+                        }
+                    });
+                    executorService.shutdown();
+                    return null;
                 }
-            });
-            executorService.shutdown();
+            };
+            Thread thread = new Thread(processTask);
+            thread.setDaemon(true);
+            thread.start();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Notice");
+            alert.setHeaderText("Done!");
+            alert.showAndWait();
         });
     }
 }

@@ -8,27 +8,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="595.0" style="-fx-background-color: #FFC78C;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se233.project.controller.ViewController">
    <children>
-      <Pane fx:id="dropPane" layoutX="5.0" layoutY="6.0" prefHeight="445.0" prefWidth="325.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #FF7800; -fx-border-width: 2;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="6.0">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="88.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/drag-and-drop.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-37.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/umaru.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="222.0" fitWidth="200.0" layoutX="125.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/a.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
-      <TabPane fx:id="tabPane" layoutX="330.0" layoutY="6.0" prefHeight="445.0" prefWidth="286.0" stylesheets="@../css/TabSheet.css">
+      <SplitPane orientation="VERTICAL" prefHeight="33.0" prefWidth="595.0" style="-fx-background-color: d0d0d0;" />
+      <TabPane fx:id="tabPane" layoutX="330.0" layoutY="3.0" prefHeight="448.0" prefWidth="286.0" stylesheets="@../css/TabSheet.css">
          <tabs>
-            <Tab fx:id="tab" closable="false" text="Archive">
+            <Tab fx:id="tab" closable="false" style="-fx-background-color: white;" text="Archive">
                <content>
                   <AnchorPane prefHeight="413.0" prefWidth="278.0">
                      <children>
@@ -50,7 +33,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab2" closable="false" text="Extract">
+            <Tab fx:id="tab2" closable="false" style="-fx-background-color: white; -fx-border-width: 1;" text="Extract">
                <content>
                </content>
                <content>
@@ -73,15 +56,31 @@
             </Tab>
          </tabs>
       </TabPane>
-      <AnchorPane layoutX="342.0" layoutY="40.0" prefHeight="269.0" prefWidth="239.0">
+      <Pane fx:id="dropPane" layoutX="5.0" layoutY="3.0" prefHeight="448.0" prefWidth="323.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-radius: 10; -fx-border-color: #FF7800; -fx-border-width: 2;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="88.0" layoutY="148.0" opacity="0.29" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/drag-and-drop.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-27.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/umaru.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="222.0" fitWidth="200.0" layoutX="123.0" layoutY="-46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/a.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <AnchorPane layoutX="342.0" layoutY="33.0" prefHeight="269.0" prefWidth="239.0">
          <children>
             <Button fx:id="browseButton" layoutX="168.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8A22; -fx-border-color: white; -fx-border-width: 2;" text="Browse..." />
             <Button fx:id="deleteButton" layoutX="183.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="56.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Delete" />
             <Button fx:id="addButton" mnemonicParsing="false" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Add" />
             <Button fx:id="clearButton" layoutX="128.0" mnemonicParsing="false" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-background-color: #FF8F18; -fx-border-color: white; -fx-border-width: 2;" text="Clear" />
-            <ListView fx:id="listView" layoutX="-1.0" layoutY="35.0" prefHeight="152.0" prefWidth="239.0" style="-fx-border-color: #FF7800; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" />
-            <ProgressBar fx:id="progressBar" layoutX="4.0" layoutY="193.0" prefHeight="18.0" prefWidth="231.0" progress="0.0" />
-            <Label fx:id="progressLabel" layoutX="96.0" layoutY="194.0" text="Progress" textAlignment="CENTER" />
+            <ListView fx:id="listView" layoutX="-1.0" layoutY="35.0" prefHeight="181.0" prefWidth="239.0" style="-fx-border-color: #FF7800; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-width: 2;" />
             <TextField fx:id="directoryTextField" layoutX="-1.0" layoutY="235.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter the directory" />
             <Label layoutX="-1.0" layoutY="218.0" text="Destination :" />
          </children>
