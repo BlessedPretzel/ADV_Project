@@ -60,7 +60,7 @@ public class CompressController {
         zipFile.close();
     }
 
-    public static void compressToTargz(List<String> fileDirectories, String directory, String password) throws IOException {
+    public static void compressToTargz(List<String> fileDirectories, String directory) throws IOException {
         File newFile = new File(directory);
         FileOutputStream fileOutputStream = new FileOutputStream(newFile);
         GzipCompressorOutputStream gzipCompressorOutputStream = new GzipCompressorOutputStream(fileOutputStream);

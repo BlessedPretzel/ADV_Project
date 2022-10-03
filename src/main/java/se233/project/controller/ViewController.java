@@ -29,8 +29,6 @@ public class ViewController {
     @FXML
     private Pane dropPane;
     @FXML
-    private MenuBar menuBar;
-    @FXML
     private ChoiceBox<FileExtension> extensionChoiceBox = new ChoiceBox<FileExtension>();
     @FXML
     private ListView<String> listView;
@@ -155,8 +153,7 @@ public class ViewController {
                 }
                 else {
                     CompressController.compressToTargz(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz",
-                            passwordField.getText());
+                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz");
                 }
             } catch (IllegalStateException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
