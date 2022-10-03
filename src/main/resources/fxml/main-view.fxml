@@ -40,7 +40,7 @@
                </image>
             </ImageView>
          </children></Pane>
-      <TabPane layoutX="339.0" layoutY="40.0" prefHeight="445.0" prefWidth="273.0" stylesheets="@../css/TabSheet.css">
+      <TabPane fx:id="tabPane" layoutX="339.0" layoutY="40.0" prefHeight="445.0" prefWidth="273.0" stylesheets="@../css/TabSheet.css">
          <tabs>
             <Tab fx:id="tab" closable="false" text="Archive">
                <content>
