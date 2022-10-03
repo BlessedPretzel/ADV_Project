@@ -9,7 +9,9 @@ import java.io.IOException;
 
 public class Launcher extends Application {
     public static Stage stage;
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
     @Override
     public void start(Stage stage) throws IOException {
         Launcher.stage = stage;

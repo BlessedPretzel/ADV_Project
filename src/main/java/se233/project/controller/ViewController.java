@@ -43,7 +43,7 @@ public class ViewController {
     @FXML
     private TabPane tabPane;
     @FXML
-    public void initialize() {
+    public void initialize() throws NullPointerException {
 
         extensionChoiceBox.setItems(FXCollections.observableList(Arrays.asList(FileExtension.ZIP,FileExtension.TARGZ)));
         extensionChoiceBox.setValue(FileExtension.ZIP);
@@ -93,15 +93,15 @@ public class ViewController {
         addButton.setOnAction(actionEvent -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select files");
-            try {
-                fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner())
-                        .stream()
-                        .map(File::getAbsolutePath)
-                        .toList());
-                fileDirectories.setAndUpdate(fileArrayList);
-            } catch (NullPointerException e) {
-                System.out.println("Add Button: No directory chosen");
-            }
+            /*try {*/
+            fileArrayList.addAll(fileChooser.showOpenMultipleDialog(Launcher.stage.getOwner())
+                    .stream()
+                    .map(File::getAbsolutePath)
+                    .toList());
+            fileDirectories.setAndUpdate(fileArrayList);
+//            } catch (NullPointerException e) {
+//                throw e;
+//            }
             listView.setItems(fileDirectories.getObservableFileList());
             SelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
             tabSelectionModel.select(0);
@@ -153,7 +153,9 @@ public class ViewController {
                 }
                 else {
                     CompressController.compressToTargz(fileDirectories.getFileList(),
-                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz");
+                            directoryTextField.getText() + "\\" + fileNameTextField.getText()+".tar.gz",
+                            progressLabel,
+                            progressBar);
                 }
             } catch (IllegalStateException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
