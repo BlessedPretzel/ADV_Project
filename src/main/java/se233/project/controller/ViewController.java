@@ -36,8 +36,6 @@ public class ViewController {
     @FXML
     private ListView<String> listView;
     @FXML
-    private Label progressLabel;
-    @FXML
     private Button browseButton, addButton, deleteButton, archiveButton, clearButton, extractButton;
     @FXML
     private TextField directoryTextField, fileNameTextField, passwordField;
