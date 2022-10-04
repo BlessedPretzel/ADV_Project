@@ -13,6 +13,7 @@ import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,9 +48,7 @@ public class ZipCompressor extends Task<Void> {
             zipFile = new ZipFile(directory);
         }
         zipFile.setRunInThread(true);
-        for (String file: fileDirectories) {
-            zipFile.addFile(file, zipParameters);
-        }
+        zipFile.addFiles(fileDirectories.stream().map(File::new).toList(), zipParameters);
         zipFile.close();
         return null;
     }
